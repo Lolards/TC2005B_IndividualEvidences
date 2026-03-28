@@ -1,0 +1,189 @@
+/* reset css * selecciona todos los elementos */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Etiqueta <body> */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
+  color: #222;
+  background: #f9f9fb;
+}
+
+/* id="logo" */
+#logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #093b66;
+}
+
+/* Clase navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Clase nav-links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Selecciona <a> dentro de <li> dentro de .nav-links */
+.nav-links li a {
+  text-decoration: none;
+  color: #0f4a8a;
+  font-size: 1rem;
+}
+
+/* Estilo para cuando se pase el mouse sobre un enlace */
+.nav-links li a:hover {
+  color: #0752ab;
+}
+
+/* Clase hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(120deg, #739de8 0%, #a6c9ff 100%);
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* <h1> dentro de .hero-content */
+.hero-content h1 {
+  font-size: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* <p> dentro de .hero-content */
+.hero-content p {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+
+/* Clase btn */
+.btn {
+  display: inline-block;
+  background: #0f4a8a;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.6rem;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para cuando se pase el mouse sobre un botón */
+.btn:hover {
+  background: #07448f;
+  border-color: #032e68;
+}
+
+/* Clase features */
+.features {
+  padding: 2rem 1rem;
+}
+
+/* <h2> dentro de .features */
+.features h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Clase cards (Organismo) */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+/* Clase card (molecula) */
+.card {
+  background: #ffffff;
+  border: 1px solid #cdd4de;
+  border-radius: 0.9rem;
+  padding: 1.25rem;
+  margin: 0.25rem 0;
+  box-shadow: 0 2px 9px rgba(8, 24, 53, 0.08);
+  width: 100%;
+}
+
+/* <h3> dentro de .card */
+.card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* <p> dentro de .card */
+.card p {
+  font-size: 1rem;
+}
+
+/* Clase reflexion */
+.reflexion {
+  padding: 1.75rem 1rem;
+  background: #eef2f8;
+}
+
+/* <h2> dentro de .reflexion */
+.reflexion h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* <h3> dentro de .reflexion */
+.reflexion h3 {
+  font-size: 1.125rem;
+  margin-top: 1rem;
+}
+
+/* <p> dentro de .reflexion */
+.reflexion p {
+  margin-top: 0.35rem;
+  font-size: 1rem;
+}
+
+/* etiqueta <footer> */
+footer {
+  padding: 1rem;
+  text-align: center;
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+  font-size: 0.95rem;
+}
+
+
+/* Para pantallas medianas (tablets) */
+@media (min-width: 600px) {
+  .hero-content h1 {
+    font-size: 2.75rem;
+  }
+
+  .cards {
+    flex-direction: row;  /* Tarjetas en fila */
+  }
+
+  .card {
+    width: 48%;  /* 2 tarjetas por fila */
+  }
+}
+
+/* Para pantallas grandes (escritorio) */
+@media (min-width: 1024px) {
+  .card {
+    width: 31%;  /* 3 tarjetas por fila */
+  }
+}
