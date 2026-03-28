@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <!-- viewport: escala responsiva para móviles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing básica - Fundamentos CSS</title>
+  <!-- Vincula el archivo CSS externo -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- .navbar (organismo principal) -->
+  <nav class="navbar" role="navigation">
+    <!-- #logo (ID único) -->
+    <div id="logo">MiMarca</div>
+    <!-- .nav-links (molécula: lista de enlaces) -->
+    <ul class="nav-links">
+      <li><a href="#hero">Inicio</a></li>
+      <li><a href="#features">Características</a></li>
+      <li><a href="#reflexion">Reflexión</a></li>
+    </ul>
+  </nav>
+
+  <!-- .hero (organismo: sección principal) -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <!-- .hero-content h1 (molécula: título principal) -->
+      <h1>Bienvenido a la landing</h1>
+      <p>Ejemplo básico de CSS con flexbox, tipografía y mobile-first.</p>
+      <!-- .btn (molécula: botón) -->
+      <a class="btn" href="#features">Conocer más</a>
+    </div>
+  </section>
+
+  <!-- .features (organismo: sección características) -->
+  <section class="features" id="features">
+    <h2>Características</h2>
+    <!-- .cards (organismo: contenedor de tarjetas) -->
+    <div class="cards">
+      <!-- .card (molécula: tarjeta individual) -->
+      <article class="card">
+        <h3>Responsive</h3>
+        <p>Adaptación fluida en dispositivos móviles, tablet y escritorio.</p>
+      </article>
+      <article class="card">
+        <h3>Flexbox</h3>
+        <p>Layout moderno con flex-wrap, gap y alineación central.</p>
+      </article>
+      <article class="card">
+        <h3>Escala tipográfica</h3>
+        <p>Tamaños definidos en rem para consistencia y accesibilidad.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- .reflexion (organismo: sección reflexión) -->
+  <section class="reflexion" id="reflexion">
+    <h2>Reflexión</h2>
+    <!-- .reflexion h3 (molécula: subtítulos) -->
+    <h3>¿Cuál es la diferencia entre padding y margin?</h3>
+    <p>Padding es el espacio dentro del borde del elemento (entre contenido y borde). Margin es el espacio exterior (separación entre elementos).</p>
+
+    <h3>¿Por qué se recomienda usar box-sizing: border-box?</h3>
+    <p>Porque incluye padding y borde en el ancho/alto total del elemento, lo que hace los cálculos de diseño más predecibles y evita desbordes no deseados.</p>
+
+    <h3>¿Qué significa diseñar con enfoque mobile-first?</h3>
+    <p>Significa escribir estilos base para móviles primero y luego ampliar con media queries para tablet/desktop. Esto mejora rendimiento y mantenibilidad para usuarios móviles.</p>
+
+    <h3>¿En qué situaciones preferirías rem sobre px?</h3>
+    <p>Rem se prefiere para tipografía y espaciado cuando se busca escalabilidad y accesibilidad (ajustes globales de tamaño). Px sirve para bordes, sombras, etc.</p>
+  </section>
+
+  <footer>
+    <p>© 2026 MiMarca. Proyecto básico con CSS externo.</p>
+  </footer>
+</body>
+</html>
