@@ -1,0 +1,116 @@
+<!-- DevCard — página de perfil de desarrollador -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevCard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <span class="navbarlogo">DevCard</span>
+    <ul class="navbarlinks">
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <button id="toggle-dark" class="btn btn--sm">🌙 Modo oscuro</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img class="heroavatar"
+         src="https://api.dicebear.com/7.x/avataaars/svg?seed=devcard"
+         alt="Avatar">
+    <h1 class="heroname">Ada Lovelace</h1>
+    <p class="herorole">Full-Stack Developer</p>
+    <a href="#" class="btn">Ver proyectos</a>
+  </section>
+
+  <!-- Skills -->
+  <section class="skills" id="skills">
+    <h2>Mis habilidades</h2>
+    <div class="skillsgrid">
+      <div class="skill-card">
+        <span class="skill-cardicon">🌐</span>
+        <h3>HTML & CSS</h3>
+        <p>Semántica, Flexbox, Grid y diseño responsivo.</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-cardicon">⚙️</span>
+        <h3>JavaScript</h3>
+        <p>ES6+, DOM, Fetch API y programación asíncrona.</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-card__icon">🗄️</span>
+        <h3>Node.js</h3>
+        <p>APIs REST, Express y manejo de bases de datos.</p>
+      </div>
+    </div>
+  </section>
+      <h2>Preguntas y Respuestas</h2>
+ 
+    <h3>1. ¿Qué ventajas ofrecen las variables CSS sobre los valores hardcodeados?</h3>
+    <p>Las variables CSS permiten centralizar valores reutilizables (colores, tamaños, espaciados) en un solo lugar. Al cambiar una variable, el cambio se aplica en todo el documento automáticamente, lo que facilita el mantenimiento, reduce errores y hace el código más legible y escalable.</p>
+ 
+    <h3>2. ¿En qué casos conviene declarar variables CSS fuera del selector :root?</h3>
+    <p>Cuando la variable solo aplica a un componente específico. Por ejemplo, declarar --card-bg dentro de .skill-card limita su alcance a ese elemento y sus hijos. También es útil para sobrescribir variables en contextos como modo oscuro (body.dark) o dentro de media queries.</p>
+ 
+    <h3>3. ¿Cómo se pueden utilizar las variables CSS para implementar un sistema de temas (como modo oscuro)?</h3>
+    <p>Se declaran las variables en :root con los valores del tema claro. Luego, en un selector alternativo como body.dark, se redeclaran las mismas variables con los valores del tema oscuro. Al agregar o quitar esa clase con JavaScript, el navegador actualiza todos los elementos que usan esas variables automáticamente.</p>
+ 
+    <h3>4. ¿Qué sucede cuando intentas usar una variable CSS que no ha sido declarada?</h3>
+    <p>El navegador usa el valor de respaldo si se proporcionó uno: var(--color-inexistente, red). Si no hay valor de respaldo, la propiedad se comporta como invalid y se usa el valor inicial o heredado de esa propiedad, sin mostrar ningún error visible en pantalla.</p>
+ 
+    <h3>5. ¿Cuál es la diferencia entre los enfoques mobile-first y desktop-first?</h3>
+    <p>Mobile-first escribe los estilos base para pantallas pequeñas y usa min-width en los media queries para agregar estilos conforme crece la pantalla. Desktop-first hace lo contrario: estilos base para pantallas grandes y usa max-width para ajustar en pantallas pequeñas. Mobile-first es el enfoque recomendado hoy porque prioriza el rendimiento en dispositivos con menos recursos.</p>
+ 
+    <h3>6. ¿Qué breakpoints son los más comunes y por qué?</h3>
+    <p>Los más usados son 480px (móviles grandes), 768px (tablets), 1024px (laptops) y 1280px (escritorios). Se eligieron porque coinciden con los tamaños de pantalla más frecuentes en el mercado. Frameworks como Tailwind y Bootstrap usan variantes de estos mismos valores como referencia estándar.</p>
+ 
+    <h3>7. ¿Cómo afecta el viewport meta tag al diseño responsivo?</h3>
+    <p>Sin el meta viewport, los navegadores móviles simulan una pantalla de escritorio (generalmente 980px) e ignoran los media queries. Con &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt; se indica al navegador que use el ancho real del dispositivo, lo que hace que los media queries y el diseño responsivo funcionen correctamente.</p>
+ 
+    <h3>8. ¿Qué técnicas además de media queries existen para crear diseños responsivos?</h3>
+    <p>Flexbox y CSS Grid adaptan el layout de forma fluida sin necesidad de breakpoints. Las unidades relativas como %, em, rem, vw y vh escalan con el contenedor o la pantalla. La función clamp() ajusta valores entre un mínimo y máximo de forma continua. También existen los container queries, que responden al tamaño del contenedor padre en lugar del viewport.</p>
+ 
+    <h3>9. ¿Cómo puedes identificar qué regla CSS está siendo aplicada cuando hay múltiples selectores?</h3>
+    <p>Con las DevTools del navegador (F12), en la pestaña Styles se muestran todas las reglas que aplican a un elemento ordenadas por especificidad. Las reglas sobreescritas aparecen tachadas. El navegador aplica la de mayor especificidad; en caso de empate, la que aparece más abajo en el código.</p>
+ 
+    <h3>10. ¿Qué información proporciona la pestaña Computed en DevTools?</h3>
+    <p>Muestra el valor final calculado de cada propiedad CSS aplicada a un elemento, después de resolver herencias, variables, unidades relativas y cascada. Es útil para ver el valor real en píxeles de propiedades como padding, margin o font-size, aunque hayan sido definidas con rem o porcentajes.</p>
+ 
+    <h3>11. ¿Cómo puedes simular diferentes dispositivos sin tener acceso físico a ellos?</h3>
+    <p>Con el modo de dispositivo en las DevTools del navegador (ícono de móvil en Chrome/Firefox). Permite seleccionar dispositivos predefinidos, cambiar el tamaño del viewport manualmente, simular densidad de píxeles y emular conexiones lentas. También existen herramientas como Responsively App o BrowserStack.</p>
+ 
+    <h3>12. ¿En qué situaciones es preferible usar Bootstrap sobre Tailwind CSS y viceversa?</h3>
+    <p>Bootstrap es preferible cuando se necesita prototipar rápido con componentes prediseñados listos (modales, navbars, tablas) o cuando el equipo tiene poca experiencia en CSS. Tailwind es mejor cuando se quiere control total sobre el diseño sin sobrescribir estilos, se prioriza un bundle pequeño en producción o se trabaja en proyectos con diseño muy personalizado.</p>
+ 
+    <h3>13. ¿Qué significa que Tailwind sea "utility-first"?</h3>
+    <p>Significa que el diseño se construye aplicando directamente clases de utilidad pequeñas y de propósito único en el HTML, como text-center, bg-blue-500 o p-4, en lugar de escribir clases semánticas con estilos en un archivo CSS separado. Cada clase hace una sola cosa y se combinan para lograr cualquier diseño.</p>
+ 
+    <h3>14. ¿Cómo afecta el uso de un framework CSS al tamaño final del bundle?</h3>
+    <p>Bootstrap incluye todos sus estilos por defecto, sumando 150-200kb sin minificar. Tailwind en desarrollo es enorme, pero en producción usa un proceso de purge que elimina todas las clases no usadas, dejando archivos de pocos kilobytes. Un framework bien configurado puede ser más ligero que CSS escrito a mano sin optimizar.</p>
+ 
+    <h3>15. ¿Es posible combinar múltiples frameworks CSS en un mismo proyecto? ¿Por qué sí o por qué no?</h3>
+    <p>Técnicamente es posible, pero no se recomienda. Combinar frameworks aumenta el peso del bundle, puede generar conflictos de especificidad entre sus estilos y dificulta el mantenimiento al mezclar convenciones distintas. Solo tiene sentido de forma temporal durante una migración gradual de un framework a otro.</p>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <p>✉️ ada@devcard.io — GitHub: @ada</p>
+  </footer>
+  
+  <script>
+  const btn = document.getElementById('toggle-dark');
+  btn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    btn.textContent = document.body.classList.contains('dark')
+      ? '☀️ Modo claro' : '🌙 Modo oscuro';
+  });
+</script>
+
+</body>
+</html>
