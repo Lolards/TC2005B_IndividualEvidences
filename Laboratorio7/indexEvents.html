@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta charset="utf-8">
+    <title>HTML</title>
+  </head>
+  <body>
+    <!-- Content -->
+
+    <p id="par1">Lorem ipsum dolor sit </p>
+     <div id="par2">
+        <p>Parráfo 2 </p>
+     </div>
+
+    <h1>Películas Famosas</h1>
+    <ul class="list">
+        <li>Titanic</li>
+        <li>Jurassic Park</li>
+        <li>El señor de los Anillos</li>
+        <li>Star Wars</li>
+    </ul>
+
+    <h2>Elementos que se utilizan en desarrollo Web:</h2>
+
+  <h2> Rutas absolutas y relativas </h2>
+
+  <p> Las rutas absolutas son los enlaces completos, los cuales incluyen el dominio completo Ej: <a href="https://www.wikipedia.org">https://www.wikipedia.org</a>. Las rutas relativas son el enlace sin el dominio, solo el orden de direcctorios Ej: <a href="../paginas/contacto.html">../paginas/contacto.html</a>.</p>
+
+  <h3> Rutas en el proyecto. </h3>
+
+  <p> En el proyecto, el uso de las rutas es muy útil para organizar el uso de recursos. Una ruta absoluta se usa por ejemplo cuando se enlaza a un recurso fuera de nuestro dominio. La ruta relativa se usa cuando se enlaza a un recurso dentro de nuestro dominio. Solamente es la dirección de donde está este recurso. Ej: <a href="paginas/about.html">paginas/about.html</a></p>
+
+  <h2>Navegación entre páginas</h2>
+  <p>
+    Existen varias formas de comunicarse con otras páginas, ya sean internas del proyecto o externas. A continuación se muestran los distintos enfoques.
+  </p>
+
+  <p>
+    <a href="https://www.google.com">Ir a Google (misma pestaña)</a>
+    : La etiqueta <code>&lt;a&gt;</code> sin atributo <code>target</code> abre el enlace
+    en la misma pestaña, reemplazando la página actual.
+  </p>
+
+
+  <p>
+    <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+      Ir a Google (nueva pestaña)
+    </a>
+    : Agregar <code>target="_blank"</code> abre el enlace en una pestaña nueva.
+    Se añade <code>rel="noopener noreferrer"</code> por seguridad.
+  </p>
+
+  <hr>
+
+  <form action="https://www.google.com/search" method="get" style="margin: 12px 0;">
+    <label for="busqueda">Buscar en Google (vía form submit):</label><br>
+    <input type="text" id="busqueda" name="q" placeholder="Escribe algo...">
+
+    <button type="submit">Buscar</button>
+    <p>Botón <code>type="submit"</code> dentro de un <code>&lt;form&gt;</code>:
+      usa el comportamiento nativo del navegador para navegar al <code>action</code>.</p>
+  </form>
+  <hr>
+  <button id="btn-js-nav">Ir a Wikipedia con JavaScript (misma pestaña)</button>
+  <p><code>&lt;button&gt;</code> independiente con JS: usa
+    <code>window.location.href</code> para navegar.</p>
+  <hr>
+  <button id="btn-js-nueva">Abrir Juegos Friv en nueva pestaña con JavaScript</button>
+  <p>Usa <code>window.open(url, '_blank')</code> para nueva pestaña desde JS.</p>
+  <hr>
+  </body>
+  <script>
+    let log = console.log;
+    // console.log(document);
+
+    /* Función getElementById 
+    let variablePar = document.getElementById("par2");
+    log(variablePar.innerHTML);
+    */
+
+    /* Función querySelector 
+    const h1Element = document.querySelector('h1');
+    log(h1Element);
+
+    const list = document.querySelectorAll("ul > li");
+    
+    list.forEach((item) => {
+        log(item.textContent);
+    });
+    */
+
+    /* Función createElement 
+
+    let listaSinOrden = document.createElement("ul");
+
+    document.body.appendChild(listaSinOrden);
+
+    let elementoLista1 = document.createElement("li");
+    elementoLista1.textContent = "HTML";
+    listaSinOrden.appendChild(elementoLista1);
+
+    let elementoLista2 = document.createElement("li");
+    elementoLista2.textContent = "CSS";
+    listaSinOrden.appendChild(elementoLista2);
+
+    let elementoLista3 = document.createElement("li");
+    elementoLista3.textContent = "JavaScript";
+    listaSinOrden.appendChild(elementoLista3);
+
+    let newH3 = document.createElement("h3");
+    newH3.textContent = "Hola soy un texto en color negro";
+    document.body.appendChild(newH3);
+
+    const h3 = document.querySelector("h3");
+    h3.style.color = "lightcoral";
+    */
+
+    /* Eventos */
+    let newButton = document.createElement("button");
+    newButton.textContent = "Mostrar Alerta";
+    newButton.setAttribute("id", "btn");
+    document.body.appendChild(newButton);
+
+    const button = document.getElementById("btn");
+
+    button.addEventListener("click", function() {
+      // alert("¡Hola! Has hecho clic en el botón.");
+      //var result = confirm("Desea continuar?");
+      //log(result);
+
+      Swal.fire({
+        title: 'Error!',
+        text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+        });
+    });
+    
+    // ==========================================
+    // Listeners para los botones de navegación JS
+    
+    // Redirige en la misma pestaña usando window.location.href
+    document.getElementById("btn-js-nav").addEventListener("click", function () {
+      window.location.href = "https://www.wikipedia.org";
+    });
+
+    // Abre en una nueva pestaña usando window.open con '_blank'
+    document.getElementById("btn-js-nueva").addEventListener("click", function () {
+      window.open("https://friv.com", "_blank", "noopener,noreferrer");
+    });
+
+  </script>
+</html>
