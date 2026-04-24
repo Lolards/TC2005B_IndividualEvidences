@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>AJAX Consumption</title>
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <h3>¿Que importancia tiene AJAX en el desarrollo de RIA's (Rich Internet Applications)?</h3>
+    <p>Es importante en el desarrollo de RIA's porque permite la creación de aplicaciones web interactivas y dinámicas sin necesidad de recargar toda la página. Esto mejora la experiencia del usuario al proporcionar una respuesta más rápida y fluida.</p>
+    <h3>¿Que implicaciones de seguridad tiene AJAX? ¿Donde se deben hacer las validaciones de seguridad, del lado del cliente o del lado del servidor?</h3>
+    <p>Las implicaciones de seguridad de AJAX incluyen la posibilidad de que los datos sean manipulados o interceptados durante la comunicación entre el cliente y el servidor. Las validaciones de seguridad deben hacerse en el lado del servidor para garantizar que los datos sean seguros y válidos antes de ser procesados.</p>
+    <h3>¿Que es JSON?</h3>
+    <p>JSON (JavaScript Object Notation) es un formato de intercambio de datos ligero que se utiliza comúnmente para transmitir datos entre un servidor y un cliente en aplicaciones web.</p>
+
+    <h1>AJAX consumption</h1>
+
+    <div id="productos-container"></div>
+
+    <h2>Save Product</h2>
+
+    <form id="myForm">
+      <input type="number" id="id" name="id" placeholder="Id"></input>
+      <input type="text" id="name" name="name" placeholder="Name"></input>
+      <input type="number" id="price" name="price" step="any" placeholder="Price"></input>
+      <input type="submit" id="submitButton"></input>
+    </form>
+    <button id="updateProducts">Update Products</button>
+    <code id="codeResult"></code>
+    <div id="wrapper"></div>
+  </body>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+</html>
