@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de juegos — página <%= page %></title>
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 2rem; background: #f9fafb; }
+        h1 { margin-bottom: 0.2rem; }
+        .meta { color: #6b7280; margin-bottom: 1.5rem; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e5e7eb; text-align: left; }
+        th { background: #111827; color: white; }
+        tr:hover { background: #f3f4f6; }
+        .pager { margin-top: 1.5rem; }
+        .pager a, .pager span { padding: 0.35rem 0.7rem; margin-right: 0.3rem; border: 1px solid #d1d5db; border-radius: 4px; text-decoration: none; color: #111827; }
+        .pager .current { background: #111827; color: white; }
+    </style>
+</head>
+<body>
+    <h3>¿Qué ventajas tiene escribir el código SQL únicamente en la capa del modelo?</h3>
+    <p>Al escribir el código SQL únicamente en la capa del modelo se facilita el mantenimiento y la prueba del código. Además, de que se evita la duplicación de código.</p>
+    <h3>¿Qué es SQL injection y cómo se puede prevenir?</h3>
+    <p>SQL injection es un tipo de ataque de seguridad que consiste en insertar código SQL malicioso en una aplicación web. Se puede prevenir utilizando consultas parametrizadas y validando la entrada del usuario.</p>
+    <h3>¿Por qué en la práctica las credenciales de Supabase viven en un archivo .env y no directamente en database.js?</h3>
+    <p>Si las credenciales de Supabase se escriben directamente en database.js y se hace commit del archivo, se corre el riesgo de que estas credenciales sean expuestas públicamente en el repositorio de código. Esto podría permitir a cualquier persona con acceso al repositorio utilizar las credenciales para acceder a la base de datos de Supabase.</p>
+    <h3>¿Qué problema resuelve usar un pool de conexiones en lugar de abrir y cerrar una conexión nueva en cada request?</h3>
+    <p>Usar un pool de conexiones resuelve el problema de la sobrecarga asociada con la apertura y cierre de conexiones en cada request. Esto mejora el rendimiento y la eficiencia al reutilizar conexiones existentes.</p>
+    <h3>En la práctica usaste pool.query(sql, [valor1, valor2]) con placeholders $1, $2 en lugar de armar el query concatenando strings. Muestra un ejemplo corto de un query inseguro y su versión parametrizada, y explica en 2 o 3 líneas por qué el segundo bloquea una inyección como ' OR 1=1 --.</h3>
+    <p>Ejemplo de query inseguro:</p>
+    <p>
+    <p>const userInput = "' OR 1=1 --";</p>
+    <p>const sql = "SELECT * FROM users WHERE username = '" + userInput + "'";</p>
+    <p></p>pool.query(sql);</p>
+    </p>
+    <p>Ejemplo de query parametrizado:</p>
+    <p>
+    <p>const userInput = "' OR 1=1 --";</p>
+    <p>const sql = "SELECT * FROM users WHERE username = $1";</p>
+    <p>pool.query(sql, [userInput]);</p>
+    </p>
+    <p>En el primer bloque, el input del usuario se concatena directamente en la consulta SQL, lo que permite que el atacante inyecte código malicioso. En el segundo bloque, el input del usuario se pasa como un parámetro separado, lo que evita que el código malicioso sea ejecutado, ya que el motor de la base de datos lo trata como un valor literal en lugar de parte de la consulta.</p>
+    <h1>Catálogo de juegos</h1>
+    
+    <p class="meta"><%= total %> juegos en total — página <%= page %> de <%= totalPages %></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th><th>Título</th><th>Estudio</th><th>Género</th>
+                <th>Año</th><th>Precio</th><th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% juegos.forEach(j => { %>
+                <tr>
+                    <td><%= j.id %></td>
+                    <td><%= j.title %></td>
+                    <td><%= j.studio %></td>
+                    <td><%= j.genre %></td>
+                    <td><%= j.release_year %></td>
+                    <td>$<%= j.price %></td>
+                    <td><%= j.rating %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <div class="pager">
+        <% if (page > 1) { %>
+            <a href="/games?page=<%= page - 1 %>">← Anterior</a>
+        <% } %>
+        <% for (let p = 1; p <= totalPages; p++) { %>
+            <% if (p === page) { %>
+                <span class="current"><%= p %></span>
+            <% } else { %>
+                <a href="/games?page=<%= p %>"><%= p %></a>
+            <% } %>
+        <% } %>
+        <% if (page < totalPages) { %>
+            <a href="/games?page=<%= page + 1 %>">Siguiente →</a>
+        <% } %>
+    </div>
+</body>
+</html>
