@@ -9,6 +9,18 @@ const LANE_WIDTH = W / LANES;
 const CAR_WIDTH = 32;
 const CAR_HEIGHT = 56;
 const ROAD_SPEED = 320; // pixeles por segundo
+
+
+// Carga de imágenes para los autos
+const playerImg = new Image();
+playerImg.src = './AZUL(1).png';
+const enemyImg = new Image();
+enemyImg.src = './ROJO(1).png';
+
+let roadSpeed = 320;
+const BASE_ROAD_SPEED = 320;
+const BASE_SPAWN_INTERVAL = 0.9;
+
 const DASH_HEIGHT = 28;
 const DASH_GAP = 24;
 
@@ -35,12 +47,21 @@ window.addEventListener("keydown", (e) => {
     if(e.key === "ArrowRight" || e.key === "d"){
         player.lane = Math.min(LANES - 1, player.lane + 1); // mover a la derecha, sin salir del carril 3   
     }
+    if(e.key === "ArrowUp" || e.key === "w"){
+        player.y = Math.max(0, player.y - 20); // mover hacia arriba
+    }
+    if(e.key === "ArrowDown" || e.key === "s"){
+        player.y = Math.min(H - CAR_HEIGHT, player.y + 20); // mover hacia abajo
+    }
+
     if(e.key === " " && gameOver){
         enemies.length = 0; // eliminar todos los enemigos
         spawnTimer = 0;
         gameOver = false;
         score = 0;
         player.lane = 1; // reiniciar posición del jugador
+        player.y = H - 80; // reiniciar posición vertical
+        scoreSubmitted = false;
     }
 });
 
@@ -50,6 +71,7 @@ let spawnTimer = 0;
 const SPAWN_INTERVAL = 0.9; // segundos entre spawns
 let gameOver = false;
 let score = 0;
+let scoreSubmitted = false; //Para evitar multiples envios de scores
 
 function rectsOverlap(ax,ay,aw,ah,bx,by,bw,bh){
     return  ax < bx+bw && 
@@ -58,16 +80,40 @@ function rectsOverlap(ax,ay,aw,ah,bx,by,bw,bh){
             ay+ah > by;
 }
 
+
+async function submitScore() {
+  if (scoreSubmitted) return;
+  scoreSubmitted = true;
+
+  const name = (prompt('GAME OVER\nTu nombre (max 12):', 'ANON') || 'ANON').trim() || 'ANON';
+
+  try {
+    const res = await fetch('/api/scores', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, score: Math.floor(score) })
+    });
+    const top = await res.json();
+    console.log('Nuevo top 10:', top);
+  } catch (err) {
+    console.error('No se pudo enviar el score', err);
+  }
+}
+
 function update(dt){
     if(gameOver) return;
 
     score += dt * 100; // 100 puntos por segundo
-    roadOffset = (roadOffset + ROAD_SPEED * dt) % (DASH_HEIGHT + DASH_GAP);
+
+    roadSpeed = BASE_ROAD_SPEED + Math.min(score / 4, 320); // tope para no romper
+
+
+    roadOffset = (roadOffset + roadSpeed * dt) % (DASH_HEIGHT + DASH_GAP);
 
     //Spawn de rivales
     spawnTimer -= dt;
     if(spawnTimer <= 0){
-        spawnTimer = SPAWN_INTERVAL;
+        spawnTimer = Math.max(0.35, BASE_SPAWN_INTERVAL - score / 5000);
         enemies.push({
             lane: Math.floor(Math.random() * LANES),
             y: -CAR_HEIGHT
@@ -76,7 +122,7 @@ function update(dt){
 
     //Mover rivales hacia abajo y descartar los que salieron
     for( const e of enemies){
-        e.y += ROAD_SPEED * dt;
+        e.y += roadSpeed * dt;
     }
 
     // Eliminar enemigos fuera de pantalla
@@ -93,6 +139,7 @@ function update(dt){
             if(rectsOverlap(px, player.y, CAR_WIDTH, CAR_HEIGHT, 
                 ex, e.y, CAR_WIDTH, CAR_HEIGHT)){
                 gameOver = true;
+                submitScore();
                 break;
             }
         }
@@ -118,14 +165,20 @@ function render(){
     }
 
     // Rivales
-    ctx.fillStyle = "ff66cc";
     for(const e of enemies){
-        ctx.fillRect(laneToX(e.lane), e.y, CAR_WIDTH, CAR_HEIGHT);
+        ctx.drawImage(enemyImg, laneToX(e.lane), e.y, CAR_WIDTH, CAR_HEIGHT);
     }
 
     // Jugador
-    ctx.fillStyle = "#00ffaa";
-    ctx.fillRect(laneToX(player.lane), player.y, CAR_WIDTH, CAR_HEIGHT);
+    ctx.shadowColor = '#00ffaa';
+    ctx.shadowBlur = 12;
+    ctx.drawImage(playerImg, laneToX(player.lane), player.y, CAR_WIDTH, CAR_HEIGHT);
+    ctx.shadowBlur = 0;
+    // Indicador de velocidad en la esquina superior derecha:
+    ctx.fillStyle = '#888';
+    ctx.font = '12px "Courier New", monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText('SPEED ' + Math.floor(roadSpeed), W - 10, 22); 
 
     // Score
     ctx.fillStyle = '#00ffaa';
